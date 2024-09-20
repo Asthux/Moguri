@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.moguri.element.mapper.ElementMapper">
+
+    <resultMap id="elementMap" type="org.moguri.element.domain.ElementVO">
+        <id column="element_id" property="elementId"/>
+        <result column="question" property="question"/>
+        <result column="answer1" property="answer1"/>
+        <result column="answer2" property="answer2"/>
+        <result column="answer3" property="answer3"/>
+        <result column="answer1_type" property="answer1Type"/>
+        <result column="answer2_type" property="answer2Type"/>
+        <result column="answer3_type" property="answer3Type"/>
+    </resultMap>
+
+    <select id="getList" resultType="org.moguri.element.domain.ElementVO">
+    <![CDATA[
+        SELECT *
+        FROM Element
+        ]]>
+    </select>
+
+    <select id="get" resultMap="elementMap">
+        SELECT question, answer1, answer2, answer3
+        FROM Element
+        WHERE element_id = #{elementId}
+    </select>
+</mapper>
