@@ -8,6 +8,10 @@ import org.moguri.goal.domain.Goal;
 
 import java.math.BigDecimal;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
 @Getter
 @AllArgsConstructor
 @Builder
@@ -19,7 +23,11 @@ public class GoalCreateParam {
     private Date startDate;
     private Date endDate;
 
+<<<<<<< HEAD
     public Goal toEntity(){
+=======
+    public Goal toEntity() {
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
         Goal goal = Goal.builder()
                 .goalName(goalName)
                 .goalAmount(goalAmount)

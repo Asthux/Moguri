@@ -25,7 +25,11 @@ public class GoalController {
         return ApiResponse.of(GoalItem.of(goal));
     }
 
+<<<<<<< HEAD
     @PostMapping("") //목표 설정하기
+=======
+    @PostMapping("")
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
     public ApiResponse<?> create(@RequestBody GoalCreateRequest request) {
         GoalCreateParam param = request.convert();
         goalService.create(param);
@@ -33,13 +37,21 @@ public class GoalController {
     }
 
     @PutMapping("/{goalId}")
+<<<<<<< HEAD
     public ApiResponse<?> update(@PathVariable("goalId") Long goalId, @RequestBody GoalUpdateRequest request){
+=======
+    public ApiResponse<?> update(@PathVariable("goalId") Long goalId, @RequestBody GoalUpdateRequest request) {
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
         GoalUpdateParam param = request.convert();
         return ApiResponse.of(ReturnCode.SUCCESS);
     }
 
     @DeleteMapping("/{goalId}")
+<<<<<<< HEAD
     public ApiResponse<?> delete(@PathVariable("goalId") Long goalId){
+=======
+    public ApiResponse<?> delete(@PathVariable("goalId") Long goalId) {
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
         Goal goal = goalService.getGoal(goalId);
         return ApiResponse.of(GoalItem.of(goal));
     }

@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b4cc6ea05a22db71db03ca6c1a82c3f6fded48e2
 @Getter
 @AllArgsConstructor
 @Builder
