@@ -2,8 +2,6 @@ package org.moguri.member.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.moguri.member.domain.Member;
-import org.moguri.security.account.domain.AuthVO;
-import org.moguri.security.account.domain.MemberVO;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
