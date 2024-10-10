@@ -31,25 +31,33 @@ public class GoalController {
         return ApiResponse.of(GoalItem.of(goal));
     }
 
-    //getList
+    // 목표 목록 조회
     @GetMapping
     public ApiResponse<?> getList(GoalGetRequest request) {
+        // 페이지 요청 검증
         PageLimitSizeValidator.validateSize(request.getPage(), request.getLimit(), 100);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getLimit());
 
+        // 목표 목록 조회
         List<Goal> goals = goalService.getList(pageRequest);
+
+        // 총 목표 수 조회
         int totalCount = goalService.getTotalCount();
+
+        // ApiResponse 반환
         return ApiResponse.of(MoguriPage.of(pageRequest, totalCount, goals.stream().map(GoalItem::of).toList()));
     }
 
+    // 목표 추가
     @PostMapping
     public ApiResponse<?> create(@RequestBody GoalCreateRequest request) {
         GoalCreateParam param = request.convert();
         goalService.create(param);
+
         return ApiResponse.of(ReturnCode.SUCCESS);
     }
 
-    @PatchMapping
+    @PatchMapping("/{goalId}")
     public ApiResponse<?> update(@RequestBody GoalUpdateRequest request) {
         GoalUpdateParam param = request.convert();
         System.out.print(param.toString());
@@ -64,6 +72,7 @@ public class GoalController {
         return ApiResponse.of(ReturnCode.SUCCESS);
     }
 
+
     @Data //paginaiton
     private static class GoalGetRequest {
         private int page = 0;
@@ -72,23 +81,31 @@ public class GoalController {
 
     @Data
     private static class GoalItem {
+        private long memberId;
+        private long goalId;
         private String goalName;
         private BigDecimal goalAmount;
         private BigDecimal currentAmount;
+        private BigDecimal targetPercent;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private Date startDate;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private Date endDate;
         private String goalCategory;
+        private BigDecimal rewardAmount;
 
         private static GoalItem of(Goal goal) {
             GoalItem converted = new GoalItem();
+            converted.memberId = goal.getMemberId(); // 목표 추가 안돼서 추가
+            converted.goalId = goal.getGoalId();
             converted.goalName = goal.getGoalName();
             converted.goalAmount = goal.getGoalAmount();
             converted.currentAmount = goal.getCurrentAmount();
+            converted.targetPercent = goal.getTargetPercent();
             converted.startDate = goal.getStartDate();
             converted.endDate = goal.getEndDate();
             converted.goalCategory = goal.getGoalCategory();
+            converted.rewardAmount = goal.getRewardAmount();
             return converted;
         }
     }
@@ -99,9 +116,11 @@ public class GoalController {
         private String goalName;
         private BigDecimal goalAmount;
         private BigDecimal currentAmount;
+        private BigDecimal targetPercent;
         private Date startDate;
         private Date endDate;
         private String goalCategory;
+        private BigDecimal rewardAmount;
 
         public GoalCreateParam convert() {
             GoalCreateParam param = GoalCreateParam.builder()
@@ -109,9 +128,11 @@ public class GoalController {
                     .goalName(goalName)
                     .goalAmount(goalAmount)
                     .currentAmount(currentAmount)
+                    .targetPercent(targetPercent)
                     .startDate(startDate)
                     .endDate(endDate)
                     .goalCategory(goalCategory)
+                    .rewardAmount(rewardAmount)
                     .build();
             return param;
         }
@@ -124,9 +145,11 @@ public class GoalController {
         private String goalName;
         private BigDecimal goalAmount;
         private BigDecimal currentAmount;
+        private BigDecimal targetPercent;
         private Date startDate;
         private Date endDate;
         private String goalCategory;
+        private BigDecimal rewardAmount;
 
         public GoalUpdateParam convert() {
             GoalUpdateParam param = GoalUpdateParam.builder()
@@ -135,9 +158,11 @@ public class GoalController {
                     .goalName(goalName)
                     .goalAmount(goalAmount)
                     .currentAmount(currentAmount)
+                    .targetPercent(targetPercent)
                     .startDate(startDate)
                     .endDate(endDate)
                     .goalCategory(goalCategory)
+                    .rewardAmount(rewardAmount)
                     .build();
             return param;
         }
